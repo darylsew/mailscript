@@ -16,6 +16,7 @@ while True:
     toprint = [i for i in os.listdir('.') if (i.endswith('.pdf') or i.endswith('.docx') or i.endswith('.txt'))]
     if len(toprint) != 0:
         default_printer(toprint[0])
+        os.remove(toprint[0])
     
     resp, items = m.search(None, 'UNSEEN') # you could filter using the IMAP rules here (check http://www.example-code.com/csharp/imap-search-critera.asp)
     items = items[0].split() # getting the mails id
