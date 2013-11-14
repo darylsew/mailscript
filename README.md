@@ -5,6 +5,8 @@ Script to poll my emails for print jobs from roommates/friends. Feel free to do 
 
 ##TO DO
 [x] Get it working  
+[ ] Delete email after printing attachment
+[ ] Only allow emails from certain people to result in print jobs
 [ ] Encrypt email password (input from config file currently)   
 [ ] Threaded approach?  
 [ ] Refactor neatly  
