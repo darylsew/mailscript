@@ -10,12 +10,13 @@ m = imaplib.IMAP4_SSL("imap.gmail.com")
 m.login(user,pwd)
 
 while True:
-    time.sleep(10)
-    m.select("[Gmail]/All Mail") # here you a can choose a mail box like INBOX instead
+    time.sleep(5)
+    m.select("INBOX") # here you a can choose a mail box like INBOX instead
     # use m.list() to get all the mailboxes
     toprint = [i for i in os.listdir('.') if (i.endswith('.pdf') or i.endswith('.docx') or i.endswith('.txt') or i.endswith('.doc'))]
     if len(toprint) != 0:
         default_printer(toprint[0])
+        time.sleep(30)
         os.remove(toprint[0])
     
     resp, items = m.search(None, 'UNSEEN') # you could filter using the IMAP rules here (check http://www.example-code.com/csharp/imap-search-critera.asp)
