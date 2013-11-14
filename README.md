@@ -4,7 +4,7 @@ mailscript
 Script to poll my emails for print jobs from roommates/friends. Feel free to do as you like with it.  
 
 ##TO DO
-[ ] Get it working  
+[x] Get it working  
 [ ] Encrypt email password (input from config file currently)   
 [ ] Threaded approach?  
 [ ] Refactor neatly  
