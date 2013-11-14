@@ -1,8 +1,9 @@
 import email, imaplib, os, time
+from printer import default_printer
 
 detach_dir = '.' # directory where to save attachments (default: current)
 user = 'darylsew@gmail.com'
-pwd = open('config.txt').readline().strip()
+pwd = open('config.cred').readline().strip()
 
 # connecting to the gmail imap server
 m = imaplib.IMAP4_SSL("imap.gmail.com")
@@ -12,6 +13,9 @@ while True:
     time.sleep(10)
     m.select("INBOX") # here you a can choose a mail box like INBOX instead
     # use m.list() to get all the mailboxes
+    toprint = [i for i in os.listdir('.') if (i.endswith('.pdf') or i.endswith('.docx') or i.endswith('.txt'))]
+    if len(toprint) != 0:
+        default_printer(toprint[0])
     
     resp, items = m.search(None, 'UNSEEN') # you could filter using the IMAP rules here (check http://www.example-code.com/csharp/imap-search-critera.asp)
     items = items[0].split() # getting the mails id
