@@ -1,7 +1,7 @@
 mailscript
 ==========
 
-Script to poll my emails for print jobs from roommates/friends. Feel free to do as you like with it.  
+Script to poll my emails for print jobs from roommates/friends. Feel free to do as you like with it. :3
 
 ##TO DO
 [x] Get it working  
