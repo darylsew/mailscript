@@ -2,7 +2,7 @@ import email, imaplib, os, time
 from printer import default_printer
 
 detach_dir = '.' # directory where to save attachments (default: current)
-user = 'darylsew@gmail.com'
+user = 'darylprint@gmail.com'
 pwd = open('config.cred').readline().strip()
 
 # connecting to the gmail imap server
