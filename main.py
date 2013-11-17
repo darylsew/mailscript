@@ -8,6 +8,7 @@ pwd = open('config.cred').readline().strip()
 # connecting to the gmail imap server
 m = imaplib.IMAP4_SSL("imap.gmail.com")
 m.login(user,pwd)
+wl = [i.strip for i in open("whitelist.cred").readliens()]
 
 while True:
     time.sleep(5)
@@ -27,10 +28,15 @@ while True:
         email_body = data[0][1] # getting the mail content
         mail = email.message_from_string(email_body) # parsing the mail content to get a mail object
     
+	#Checks to see if the recieved email is in the whitelist
+    	if not mail["From"] in wl:
+		print "Recieved email from non-whitelisted user: "+mail["From"]
+		continue
+
         #Check if any attachments at all
         if mail.get_content_maintype() != 'multipart':
     		continue
-    	
+
         #print 'yo i got attachments'
         if mail["Subject"].lower() == 'print':
     
