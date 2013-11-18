@@ -5,7 +5,6 @@ try:
 except ImportError:
     win = false
 
-detach_dir = '.' # directory where to save attachments (default: current)
 user = 'darylprint@gmail.com' #Email to send print reqs to
 pwd = open('config.cred').readline().strip() #Your password location
 exts = ['pdf', 'docx', 'txt','doc', 'odt', 'dvi'] #List of approved exentions
