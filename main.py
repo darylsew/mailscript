@@ -1,5 +1,9 @@
-import email, imaplib, os, time
-from printer import default_printer
+import email, imaplib, os, time, subprocess
+try:
+    from printer import default_printer
+    win = true
+except ImportError:
+    win = false
 
 detach_dir = '.' # directory where to save attachments (default: current)
 user = 'darylprint@gmail.com' #Email to send print reqs to
@@ -7,7 +11,7 @@ pwd = open('config.cred').readline().strip() #Your password location
 exts = ['pdf', 'docx', 'txt','doc', 'odt', 'dvi'] #List of approved exentions
 
 # connecting to the gmail imap server
-m = imaplib.IMAP4_SSL("imap.gmail.com") #Edit this line w/ your imap server of chocie
+m = imaplib.IMAP4_SSL("imap.gmail.com") #Edit line w/ your imap server of chocie
 m.login(user,pwd)
 wl = [i.strip() for i in open("whitelist.cred").readlines()]
 
@@ -17,7 +21,8 @@ while True:
                         # use m.list() to get all the mailboxes
     toprint = [i for i in os.listdir('.') if i.split('.')[-1] in exts]
     if len(toprint) != 0:
-        default_printer(toprint[0])
+	if win: default_printer(toprint[0])
+	else: os.subprocess(["lpr",toprint[0]])
         time.sleep(30)
         os.remove(toprint[0])
 
@@ -61,7 +66,7 @@ while True:
             filename = part.get_filename()
             counter = 1
 
-            # if there is no filename, we create one with a counter to avoid duplicates
+            # if no filename, create one with counter to avoid duplicates
             if not filename:
                 filename = 'part-%03d%s' % (counter, 'bin')
                 counter += 1
