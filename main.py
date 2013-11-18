@@ -36,6 +36,7 @@ while True:
         	    os.subprocess(["lpr",toprint[0]])
                 time.sleep(30)
                 os.remove(toprint[0])
+                pickle.dump(users, f)
         
             resp, items = m.search(None, 'UNSEEN') 
             items = items[0].split() # Getting the mails ID
