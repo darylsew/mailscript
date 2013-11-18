@@ -2,15 +2,15 @@ import email, imaplib, os, time, subprocess, pickle
 from collections import defaultdict 
 try:
     from printer import default_printer
-    win = true
+    win = True
 except ImportError:
-    win = false
+    win = False
 
 user = 'darylprint@gmail.com' #Email to send print reqs to
 pwd = open('config.cred').readline().strip() #Your password location
 exts = ['pdf', 'docx', 'txt','doc', 'odt', 'dvi'] #List of approved exentions
 if os.path.exists('users.p'):
-    f = open('users.p', 'rw')
+    f = open('users.p', 'r+')
     users = pickle.load(f)
 else:
     f = open('users.p', 'w+')
@@ -30,13 +30,13 @@ while True:
                                 # use m.list() to get all the mailboxes
             toprint = [i for i in os.listdir('.') if i.split('.')[-1] in exts]
             if len(toprint) != 0:
-        	if win:
-        	    default_printer(toprint[0])
-        	else: 
-        	    os.subprocess(["lpr",toprint[0]])
-                time.sleep(30)
-                os.remove(toprint[0])
-                pickle.dump(users, f)
+				if win:
+					default_printer(toprint[0])
+				else: 
+					os.subprocess(["lpr",toprint[0]])
+				time.sleep(30)
+				os.remove(toprint[0])
+				pickle.dump(users, f)
         
             resp, items = m.search(None, 'UNSEEN') 
             items = items[0].split() # Getting the mails ID
@@ -91,6 +91,7 @@ while True:
                         fp = open(att_path, 'wb')
                         fp.write(part.get_payload(decode=True))
                         fp.close()
+print "Received email from whitelisted user: " + sender
                         users[sender]+=1
 
                 m.store(emailid, '+FLAGS', '\\Deleted')
