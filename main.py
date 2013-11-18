@@ -30,8 +30,10 @@ while True:
     
 	#Checks to see if the recieved email is in the whitelist
     	if not mail["From"] in wl:
-		print "Recieved email from non-whitelisted user: "+mail["From"]
-		continue
+			print "Recieved email from non-whitelisted user: "+mail["From"]
+			m.store(mail, '+FLAGS', '\\Deleted')
+			m.expunge
+			continue
 
         #Check if any attachments at all
         if mail.get_content_maintype() != 'multipart':
@@ -68,3 +70,7 @@ while True:
                     fp = open(att_path, 'wb')
                     fp.write(part.get_payload(decode=True))
                     fp.close()
+
+		m.store(mail, '+FLAGS', '\\Deleted')
+		m.expunge()
+	    
