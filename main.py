@@ -91,7 +91,7 @@ while True:
                         fp = open(att_path, 'wb')
                         fp.write(part.get_payload(decode=True))
                         fp.close()
-print "Received email from whitelisted user: " + sender
+                        print "Received email from whitelisted user: " + sender
                         users[sender]+=1
 
                 m.store(emailid, '+FLAGS', '\\Deleted')
